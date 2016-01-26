@@ -1,0 +1,31 @@
+plugins {
+    id 'play'
+}
+
+group = 'prv.zielony.trafficmaster'
+
+version = '1.0'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven {
+        name "typesafe-maven-release"
+        url "https://repo.typesafe.com/typesafe/maven-releases"
+    }
+    ivy {
+        name "typesafe-ivy-release"
+        url "https://repo.typesafe.com/typesafe/ivy-releases"
+        layout "ivy"
+    }
+}
+
+dependencies {
+	play 'com.typesafe.play:play_2.10:2.4.6'
+	play 'org.scala-lang:scala-library:2.10.6'
+	play 'org.apache.spark:spark-core_2.10:1.6.0'
+	play 'org.apache.spark:spark-graphx_2.10:1.6.0'
+	play 'org.hsqldb:hsqldb:2.3.3'
+
+	playTest 'org.scalacheck:scalacheck_2.10:1.12.5'
+}

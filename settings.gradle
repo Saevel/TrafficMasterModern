@@ -1,0 +1,6 @@
+include 'Events'
+include 'Search'
+include 'Users'
+include 'CourseTracker'
+include	'Planner'
+include 'Network'
