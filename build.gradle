@@ -1,3 +1,99 @@
+defaultTasks 'copyDeploymentProperties', 'build'
+
 group = 'prv.zielony.trafficmaster'
 
 version = '1.0'
+
+def filterLineForModuleProperties(line, modulePrefix, integrationPrefix) {
+
+    if(line == null || line.equals("")) {
+        return "";
+    }
+
+    if(line.startsWith(modulePrefix)) {
+        return line.replace(modulePrefix, "");
+    }
+    else if(line.startsWith(integrationPrefix)) {
+        return line;
+    }
+}
+
+def filterLineForIntegrationProperties(line, integrationPrefix) {
+
+    if(line == null || line.equals("")) {
+        return "";
+    }
+    else if(line.startsWith(integrationPrefix)) {
+        return line.replace(integrationPrefix, "");
+    }
+    else {
+        return line;
+    }
+
+}
+
+task copyCourseTrackerDeploymentProperties(type: Copy) {
+    from "application.properties"
+    into "CourseTracker"
+    filter { String line ->
+        filterLineForModuleProperties(line, "course.tracker." , "integration.bus")
+    }
+}
+
+task copyEventsDeploymentProperties(type: Copy) {
+    from "application.properties"
+    into "Events"
+    filter { String line ->
+        filterLineForModuleProperties(line, "events." , "integration.bus")
+    }
+}
+
+task copyNetworkDeploymentProperties(type: Copy) {
+    from "application.properties"
+    into "Network"
+    filter { String line ->
+        filterLineForModuleProperties(line, "network." , "integration.bus")
+    }
+}
+
+task copyPlannerDeploymentProperties(type: Copy) {
+    from "application.properties"
+    into "Planner"
+    filter { String line ->
+        filterLineForModuleProperties(line, "planner." , "integration.bus")
+    }
+}
+
+task copySearchDeploymentProperties(type: Copy) {
+    from "application.properties"
+    into "Search"
+    filter { String line ->
+        filterLineForModuleProperties(line, "search." , "integration.bus")
+    }
+}
+
+task copyUsersDeploymentProperties(type: Copy) {
+    from "application.properties"
+    into "Users"
+    filter { String line ->
+        filterLineForModuleProperties(line, "users." , "integration.bus")
+    }
+}
+
+task copyIntegrationDeploymentProperties(type: Copy) {
+    from "application.properties"
+    into "Integration"
+    filter { String line ->
+        filterLineForIntegrationProperties(line, "integration.bus.");
+    }
+}
+
+task copyDeploymentProperties << {
+    copyCourseTrackerDeploymentProperties.execute()
+    copyEventsDeploymentProperties.execute()
+    copyNetworkDeploymentProperties.execute()
+    copyPlannerDeploymentProperties.execute()
+    copySearchDeploymentProperties.execute()
+    copyUsersDeploymentProperties.execute()
+    copyIntegrationDeploymentProperties.execute()
+}

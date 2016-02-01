@@ -4,3 +4,5 @@ include 'Users'
 include 'CourseTracker'
 include	'Planner'
 include 'Network'
+include 'Integration'
+
